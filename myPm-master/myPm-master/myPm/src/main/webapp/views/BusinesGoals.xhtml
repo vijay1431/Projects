@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+
+	<ui:define name="title">
+		MyPM
+    </ui:define>
+
+	<ui:define name="header">
+		<ui:include src="/templates/headers/header.xhtml" />
+	</ui:define>
+
+	<ui:define name="sider">
+		<ui:include src="/templates/siders/sider.xhtml" />
+	</ui:define>
+
+	<ui:define name="body">
+		<h1 class="page-header">
+			<small>Business Goals : </small>
+
+		</h1>
+	
+		<h:form>
+		 <div class="control-group">
+					<h:outputLabel value="Goal" styleClass="control-label" />
+					<div class="controls">
+						<p:selectOneMenu value="#{businessGoalsBean.businessGoals.golasId}">
+							<f:selectItem itemLabel="1" itemValue="1" />
+							<f:selectItem itemLabel="2" itemValue="2" />
+							<f:selectItem itemLabel="3" itemValue="3" />
+							<f:selectItem itemLabel="4" itemValue="4" />
+							<f:selectItem itemLabel="5" itemValue="5" />
+						</p:selectOneMenu>
+						<h:message styleClass="help-inline" />
+					</div>
+				</div>
+		    <div class="control-group">
+					<h:outputLabel value="goalWeight" styleClass="control-label" />
+					<div class="controls">
+						<h:inputText value="#{businessGoalsBean.businessGoals.goalWeight}" />
+						<h:message styleClass="help-inline" />
+					</div>
+		   </div>
+		   <div class="control-group">
+					<h:outputLabel value="Goal Title" styleClass="control-label" />
+					<div class="controls">
+						<h:inputText value="#{businessGoalsBean.businessGoals.goalsTitle}" />
+						<h:message styleClass="help-inline" />
+					</div>
+		   </div>
+		    <div class="control-group">
+		            <h:outputLabel value="Goal Details" styleClass="control-label"/>
+		            <div class="controls">
+		            <h:inputTextarea  value="#{businessGoalsBean.businessGoals.goalsDetails}" style="height : 160px;"></h:inputTextarea>
+					</div>
+		   </div>
+		   <div class="form-actions">
+				<p:commandLink styleClass="btn btn-primary" value="Save Goal"
+					action="#{businessGoalsBean.SaveBusinessGoals()}" update="@form" />
+				
+				<a  href="OngoingAppraisal.xhtml" class="btn" >Back</a>
+			</div>
+		</h:form>
+
+	
+	</ui:define>
+	<ui:define name="footer">
+		<ui:include src="/templates/footers/footer.xhtml" />
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+
+	<ui:define name="title">
+		MyPM
+    </ui:define>
+
+	<ui:define name="header">
+		<ui:include src="/templates/headers/header.xhtml" />
+	</ui:define>
+
+	<ui:define name="sider">
+		<ui:include src="/templates/siders/sider.xhtml" />
+	</ui:define>
+
+	<ui:define name="body">
+		<h1 class="page-header">
+			<small>Choose sections : </small>
+
+		</h1>
+
+		<h:form id="choiceForm">
+			<p:selectOneMenu id="choice" value="#{performanceBoardBean.section}">
+				<f:selectItems value="#{enumBean.sections}" var="sec" itemLabel="#{var.value}" />
+			</p:selectOneMenu>
+			<p:commandLink actionListener="#{performanceBoardBean.saveChoice}" value="save choice" update="choiceForm"/>
+			<h:messages showDetail="true"/>
+		</h:form>
+		<h:form>
+			<h2>section details</h2>
+
+			<p:dataTable styleClass="table table-striped" value="#{performanceBoardBean.performanceBoards}"
+				var="board" sortBy="#{board.section}" rows="5" paginator="true" paginatorPosition="bottom">
+				<p:column>
+					<f:facet name="header">ID critere</f:facet>
+					<h:outputText value="#{board.idCritere}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Section</f:facet>
+					<h:outputText value="#{board.section.value}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">Title</f:facet>
+					<h:outputText value="#{board.title}" />
+				</p:column>
+				<p:column>
+					<f:facet name="header">details</f:facet>
+					<h:outputText value="#{board.details}" />
+				</p:column>
+			</p:dataTable>
+			<div class="form-actions">
+				<a href="OngoingAppraisal.xhtml" class="btn">Back</a>
+			</div>
+		</h:form>
+
+
+	</ui:define>
+	<ui:define name="footer">
+		<ui:include src="/templates/footers/footer.xhtml" />
+	</ui:define>
+</ui:composition>

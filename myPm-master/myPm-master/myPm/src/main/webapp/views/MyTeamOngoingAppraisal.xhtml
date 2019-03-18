@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+
+	<ui:define name="title">
+		MyPM
+    </ui:define>
+
+	<ui:define name="header">
+		<ui:include src="/templates/headers/header.xhtml" />
+	</ui:define>
+
+	<ui:define name="sider">
+		<ui:include src="/templates/siders/sider.xhtml" />
+	</ui:define>
+
+	<ui:define name="body">
+		<h1 class="page-header">
+			<small>${lbl.buisnessGoals} : </small>
+		</h1>
+		<h:form id="formBuisness">
+			<h3>My Team</h3>
+			<p:dataTable id="dataTable" var="employ"
+				styleClass="table table-striped" value="#{myTeam.myteam}">
+
+				<p:column headerText="Surname">
+					<h:outputText value="#{employ.surname}" />
+
+				</p:column>
+				<p:column headerText="Name">
+					<h:outputText value="#{employ.name}" />
+
+				</p:column>
+				<p:column headerText="JobTitle">
+					<h:outputText value="#{employ.jobeTitle}" />
+
+				</p:column>
+				<p:column headerText="Grade">
+					<h:outputText value="#{employ.grade}" />
+
+				</p:column>
+
+				<p:column headerText="Email">
+					<h:outputText value="#{employ.email}" />
+
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Actions" />
+					</f:facet>
+
+					<div class="btn-group">
+						<p:commandLink styleClass="btn" action="#{myTeam.redirect}">
+							<i class="icon-pencil"></i>
+							<f:setPropertyActionListener value="#{employ}"
+								target="#{employBuisnessGoals.employ}" />
+							<f:setPropertyActionListener value="#{employ.username}"
+								target="#{userSessionBean.selectedUsername}" />
+						</p:commandLink>
+
+					</div>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+	<ui:define name="footer">
+		<ui:include src="/templates/footers/footer.xhtml" />
+	</ui:define>
+</ui:composition>

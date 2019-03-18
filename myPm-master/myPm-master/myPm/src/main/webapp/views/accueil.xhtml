@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+
+	<ui:define name="title">
+		MyPM
+    </ui:define>
+
+	<ui:define name="header">
+		<ui:include src="/templates/headers/header.xhtml" />
+	</ui:define>
+
+	<ui:define name="sider">
+		<ui:include src="/templates/siders/sider.xhtml" />
+	</ui:define>
+
+	<ui:define name="body">
+		<h1 class="page-header">
+			<small>My Organisational Informations : </small>
+
+		</h1>
+		<blockquote>
+
+			<div class="row" style="margin-bottom: 10px;">
+				<div class="span3">
+					<h:graphicImage value="/resources/images/anonime.gif"
+						styleClass="pull-left" width="180" height="120" />
+				</div>
+				<div class="span5">
+					<table class="table table-stripped">
+						<tbody>
+							<tr>
+								<td><strong>Name</strong></td>
+								<td><h:outputText
+										value="#{eGeneralDataBean.eGeneralData.surname}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputText /><strong>Surname</strong></td>
+								<td><h:outputText
+										value="#{eGeneralDataBean.eGeneralData.name}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputText /><strong>Status</strong></td>
+								<td><h:outputText value="#{eGeneralDataBean.eGeneralData.status}" rendered="#{eGeneralDataBean.eGeneralData.status == 'ACTIVE'}" style="color :green"/></td>
+								<td><h:outputText value="#{eGeneralDataBean.eGeneralData.status}" rendered="#{eGeneralDataBean.eGeneralData.status == 'ENDED'}" style="color :red"/></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</blockquote>
+		<table class="table table-stripped">
+			<tbody>
+				<tr>
+					<td><strong><h:outputText value="Country" /></strong></td>
+					<td><h:outputText
+							value="#{eGeneralDataBean.eGeneralData.country}" /></td>
+					<td><strong><h:outputText value="Region" /></strong></td>
+					<td><h:outputText
+							value="#{eGeneralDataBean.eGeneralData.region}" /></td>
+				</tr>
+
+				<tr>
+					<td><strong><h:outputText value="Job Title " /></strong></td>
+					<td><h:outputText
+							value="#{eGeneralDataBean.eGeneralData.jobeTitle}" /></td>
+					<td><strong><h:outputText value="CIN " /></strong></td>
+					<td><h:outputText value="#{eGeneralDataBean.eGeneralData.cin}" /></td>
+
+				</tr>
+
+				<tr>
+					<td><strong><h:outputText value="Email " /></strong></td>
+					<td><h:outputText
+							value="#{eGeneralDataBean.eGeneralData.email}" /></td>
+					<td><strong><h:outputText value="Primary Phone number " /></strong></td>
+					<td><h:outputText
+							value="#{eGeneralDataBean.eGeneralData.PMobile}" /></td>
+				</tr>
+				<tr>
+					<td><strong><h:outputText value="Grade " /></strong></td>
+					<td><h:outputText
+							value="#{eGeneralDataBean.eGeneralData.grade}" /></td>
+					<td><strong><h:outputText value="Ladder " /></strong></td>
+					<td><h:outputText
+							value="#{eGeneralDataBean.eGeneralData.ladder}" /></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</ui:define>
+	<ui:define name="footer">
+		<ui:include src="/templates/footers/footer.xhtml" />
+	</ui:define>
+</ui:composition>

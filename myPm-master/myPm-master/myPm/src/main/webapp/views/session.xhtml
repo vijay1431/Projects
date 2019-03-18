@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+
+	<ui:define name="title">
+		MyPM
+    </ui:define>
+
+	<ui:define name="header">
+		<ui:include src="/templates/headers/header.xhtml" />
+	</ui:define>
+
+	<ui:define name="sider">
+		<ui:include src="/templates/siders/sider.xhtml" />
+	</ui:define>
+
+	<ui:define name="body">
+		<h1 class="page-header">
+			<small>Manage Sessions : </small>
+
+		</h1>
+		<h:form>
+			<a href="newSession.xhtml" class="btn btn-primary">Add new session</a>
+		</h:form>
+		<h3>Sessions Liste</h3>
+		<h:form id="formSession">
+			<p:dataTable id="sessionsID" var="appraisalsSession"
+				styleClass="table table-striped"
+				value="#{apprailsListBean.appraisalsList}">
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Year" />
+					</f:facet>
+					<h:outputText value="#{appraisalsSession.year}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Status" />
+					</f:facet>
+					<h:outputText value="#{appraisalsSession.status}" />
+
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Start Date" />
+					</f:facet>
+					<h:outputText value="#{appraisalsSession.startDate}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="End Date" />
+					</f:facet>
+					<h:outputText value="#{appraisalsSession.endDate}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Actions" />
+					</f:facet>
+
+					<div class="btn-group">
+
+						<p:commandLink styleClass="btn"
+							oncomplete="confirmationDel.show()">
+							<i class="icon-trash"></i>
+							<f:setPropertyActionListener value="#{appraisalsSession}"
+								target="#{appraisalsEditBean.appraisals}" />
+						</p:commandLink>
+
+						<p:commandLink styleClass="btn"
+							oncomplete="confirmationEdit.show()" update=":formSessionActions">
+							<i class="icon-pencil"></i>
+							<f:setPropertyActionListener value="#{appraisalsSession}"
+								target="#{appraisalsEditBean.appraisals}" />
+						</p:commandLink>
+
+						<p:commandLink styleClass="btn btn-primary" style="color:white"
+							oncomplete="confirmationShow.show()" update=":formSessionActions">
+							<i class="icon-search icon-white"></i>
+							<f:setPropertyActionListener value="#{appraisalsSession}"
+								target="#{appraisalsEditBean.appraisals}" />
+						</p:commandLink>
+					</div>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		<h:form id="formSessionDel">
+			<p:confirmDialog widgetVar="confirmationDel"
+				message="Voullez-vous vraiment supprimer cette session ? cette action est irréversible">
+
+				<h:commandLink id="confirmDel" value="Supprimer"
+					oncomplete="confirmationDel.hide()"
+					action="#{apprailsListBean.init}"
+					actionListener="#{appraisalsEditBean.deleteAppraisalSession}"
+					styleClass="btn" update=":formSession">
+				</h:commandLink>
+
+				<p:commandLink id="declineDel" value="Annuler"
+					onclick="confirmationDel.hide()" type="button" styleClass="btn" />
+			</p:confirmDialog>
+		</h:form>
+		<h:form id="formSessionActions">
+			<p:dialog id="Show" widgetVar="confirmationShow" width="900"
+				style="height:400px;" message="Session details" modal="true">
+
+				<div class="tabbable">
+					<!-- Only required for left/right tabs -->
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#general" data-toggle="tab">Général</a></li>
+						<li><a href="#planning" data-toggle="tab">Planning</a></li>
+						<li><a href="#midyear" data-toggle="tab">Mid Year Review</a></li>
+						<li><a href="#endyear" data-toggle="tab">End year Summary</a></li>
+					</ul>
+
+					<div class="tab-content">
+
+						<div class="tab-pane active" id="general">
+
+							<blockquote>
+								<h4>Général</h4>
+								<table class="table table-stripped">
+									<tbody>
+										<tr>
+											<td><strong>Year</strong></td>
+											<td><h:outputText
+													value="#{appraisalsEditBean.appraisals.year}"></h:outputText></td>
+										</tr>
+										<tr>
+											<td><h:outputText /><strong>Status</strong></td>
+											<td><h:outputText
+													value="#{appraisalsEditBean.appraisals.status}"></h:outputText></td>
+										</tr>
+										<tr>
+											<td><h:outputText /><strong>Start Date</strong></td>
+											<td><h:outputText
+													value="#{appraisalsEditBean.appraisals.startDate}"></h:outputText></td>
+										</tr>
+										<tr>
+											<td><h:outputText /><strong>End Date</strong></td>
+											<td><h:outputText
+													value="#{appraisalsEditBean.appraisals.endDate}"></h:outputText></td>
+										</tr>
+									</tbody>
+								</table>
+
+							</blockquote>
+						</div>
+						<div class="tab-pane" id="planning">
+							<blockquote>
+								<h4>Planning</h4>
+
+								<table class="table table-stripped">
+									<tbody>
+										<tr>
+											<td><h:outputText /><strong>Start Date</strong></td>
+											<td><h:outputText
+													value="#{appraisalsEditBean.appraisals.planningStartDate}"></h:outputText></td>
+										</tr>
+										<tr>
+											<td><h:outputText /><strong>End Date</strong></td>
+											<td><h:outputText
+													value="#{appraisalsEditBean.appraisals.planningEndDate}"></h:outputText></td>
+										</tr>
+									</tbody>
+								</table>
+							</blockquote>
+						</div>
+						<div class="tab-pane" id="midyear">
+							<blockquote>
+								<h4>Evaluation semestrielle</h4>
+								<table class="table table-stripped">
+									<tbody>
+										<tr>
+											<td><h:outputText /><strong>Start Date</strong></td>
+											<td><h:outputText
+													value="#{appraisalsEditBean.appraisals.midYearReviewStartDate}"></h:outputText></td>
+										</tr>
+										<tr>
+											<td><h:outputText /><strong>End Date</strong></td>
+											<td><h:outputText
+													value="#{appraisalsEditBean.appraisals.midYearReviewEndDate}"></h:outputText></td>
+										</tr>
+									</tbody>
+								</table>
+							</blockquote>
+						</div>
+						<div class="tab-pane" id="endyear">
+							<blockquote>
+								<h4>Evaluation finale</h4>
+								<table class="table table-stripped">
+									<tbody>
+										<tr>
+											<td><h:outputText /><strong>Start Date</strong></td>
+											<td><h:outputText
+													value="#{appraisalsEditBean.appraisals.endYearSummaryStartDate}"></h:outputText></td>
+										</tr>
+										<tr>
+											<td><h:outputText /><strong>End Date</strong></td>
+											<td><h:outputText
+													value="#{appraisalsEditBean.appraisals.endYearSummaryEndDate}"></h:outputText></td>
+										</tr>
+									</tbody>
+								</table>
+							</blockquote>
+						</div>
+					</div>
+				</div>
+			</p:dialog>
+
+			<p:dialog id="Edit" widgetVar="confirmationEdit" width="900"
+				style="height:400px;" message="Edit Session" modal="true">
+
+				<div class="tabbable">
+					<!-- Only required for left/right tabs -->
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#generalEdit" data-toggle="tab">General</a></li>
+						<li><a href="#planningEdit" data-toggle="tab">planning</a></li>
+						<li><a href="#midyearEdit" data-toggle="tab">Mid Year
+								Review</a></li>
+						<li><a href="#endyearEdit" data-toggle="tab">End Year
+								Summary</a></li>
+					</ul>
+
+					<div class="tab-content">
+
+						<div class="tab-pane active" id="generalEdit">
+
+							<blockquote>
+								<h4>General</h4>
+								<table class="table table-stripped">
+									<tbody>
+										<tr>
+											<td><strong>Year</strong></td>
+											<td><h:inputText
+													value="#{appraisalsEditBean.appraisals.year}"></h:inputText></td>
+										</tr>
+										<tr>
+											<td><h:outputText /><strong>Status</strong></td>
+											<td><h:inputText
+													value="#{appraisalsEditBean.appraisals.status}"></h:inputText></td>
+
+										</tr>
+										<tr>
+											<td><h:outputText /><strong>Start Day</strong></td>
+											<td><p:calendar id="c" value="#{appraisalsEditBean.appraisals.startDate}"></p:calendar></td>
+										</tr>
+										<tr>
+											<td><h:outputText /><strong>End Day</strong></td>
+											<td><p:calendar id="ds" value="#{appraisalsEditBean.appraisals.endDate}"></p:calendar></td>
+										</tr>
+									</tbody>
+								</table>
+
+							</blockquote>
+						</div>
+
+						<div class="tab-pane" id="planningEdit">
+							<blockquote>
+								<h4>Planning</h4>
+
+								<table class="table table-stripped">
+									<tbody>
+										<tr>
+											<td><h:outputText /><strong>Start Day</strong></td>
+											<td><p:calendar id="sdg" value="#{appraisalsEditBean.appraisals.planningStartDate}"></p:calendar></td>
+										</tr>
+										<tr>
+											<td><h:outputText /><strong>End Day</strong></td>
+											<td><p:calendar id="sdfg" value="#{appraisalsEditBean.appraisals.planningEndDate}"></p:calendar></td>
+										</tr>
+									</tbody>
+								</table>
+							</blockquote>
+						</div>
+						<div class="tab-pane" id="midyearEdit">
+							<blockquote>
+								<h4>Mid Year Review</h4>
+								<table class="table table-stripped">
+									<tbody>
+										<tr>
+											<td><h:outputText /><strong>Start Day</strong></td>
+											<td><p:calendar id="sss" value="#{appraisalsEditBean.appraisals.midYearReviewStartDate}"></p:calendar></td>
+										</tr>
+										<tr>
+											<td><h:outputText /><strong>End Day</strong></td>
+											<td><p:calendar id="dfh" value="#{appraisalsEditBean.appraisals.midYearReviewEndDate}"></p:calendar></td>
+										</tr>
+									</tbody>
+								</table>
+							</blockquote>
+						</div>
+						<div class="tab-pane" id="endyearEdit">
+							<blockquote>
+								<h4>End Year Summary</h4>
+								<table class="table table-stripped">
+									<tbody>
+										<tr>
+											<td><h:outputText /><strong>Start Day</strong></td>
+											<td><p:calendar id="frgj" value="#{appraisalsEditBean.appraisals.endYearSummaryStartDate}"></p:calendar></td>
+										</tr>
+										<tr>
+											<td><h:outputText /><strong>End Day</strong></td>
+											<td><p:calendar id="dfhfd" value="#{appraisalsEditBean.appraisals.endYearSummaryStartDate}"></p:calendar></td>
+										</tr>
+									</tbody>
+								</table>
+							</blockquote>
+						</div>
+					</div>
+				</div>
+				<h:commandLink id="confirmEdit" value="Save"
+					oncomplete="confirmationEdit.hide()"
+					action="#{apprailsListBean.init}"
+					actionListener="#{appraisalsEditBean.save}"
+					styleClass="btn" update=":formSession">
+				</h:commandLink>
+
+				<p:commandLink id="declineEdit" value="Annuler"
+					onclick="confirmationEdit.hide()" type="button" styleClass="btn" />
+
+			</p:dialog>
+
+		</h:form>
+
+
+	</ui:define>
+	<ui:define name="footer">
+		<ui:include src="/templates/footers/footer.xhtml" />
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+
+	<ui:define name="title">
+		MyPM
+    </ui:define>
+
+	<ui:define name="header">
+		<ui:include src="/templates/headers/header.xhtml" />
+	</ui:define>
+
+	<ui:define name="sider">
+		<ui:include src="/templates/siders/sider.xhtml" />
+	</ui:define>
+
+	<ui:define name="body">
+		<h1 class="page-header">
+			<small>Formulaire des sessions: </small>
+
+		</h1>
+		<h:form styleClass="form-horizontal">
+
+			<blockquote>
+				<h4>Général</h4>
+
+				<div class="control-group">
+					<h:outputLabel value="Année" styleClass="control-label" />
+					<div class="controls">
+						<h:inputText id="year" value="#{appraisalsBean.appraisals.year}" required="true" requiredMessage="not null value">
+						</h:inputText>
+						<h:message for="year" styleClass="error-validation" />
+					</div>
+				</div>
+				<div class="control-group">
+					<h:outputLabel value="Status" styleClass="control-label" />
+					<div class="controls">
+						<p:selectOneMenu value="#{appraisalsBean.appraisals.status}">
+							<f:selectItem itemLabel="Open" itemValue="Open" />
+							<f:selectItem itemLabel="Closed" itemValue="Closed" />
+						</p:selectOneMenu>
+						
+					</div>
+				</div>
+
+				<div class="control-group">
+					<h:outputLabel value="Date début" styleClass="control-label" />
+					<div class="controls">
+						<p:calendar id="startDay" value="#{appraisalsBean.appraisals.startDate}" required="true" requiredMessage="not null value"></p:calendar>
+						<h:message for="startDay" styleClass="error-validation" />
+					</div>
+				</div>
+				<div class="control-group">
+					<h:outputLabel value="Date fin" styleClass="control-label" />
+					<div class="controls">
+						<p:calendar id="endDay" value="#{appraisalsBean.appraisals.endDate}" required="true" requiredMessage="not null value">
+						
+						</p:calendar>
+						<h:message for="endDay" styleClass="error-validation" />
+					</div>
+				</div>
+			</blockquote>
+
+
+			<blockquote style="margin-top: 40px;">
+				<h4>Planning</h4>
+
+
+				<div class="control-group">
+					<h:outputLabel value="Date début" styleClass="control-label" />
+					<div class="controls">
+						<p:calendar id="pstartDay" value="#{appraisalsBean.appraisals.planningStartDate}" required="true" requiredMessage="not null value"></p:calendar>
+						<h:message for="pstartDay" styleClass="error-validation" />
+					</div>
+				</div>
+				<div class="control-group">
+					<h:outputLabel value="Date fin" styleClass="control-label" />
+					<div class="controls">
+						<p:calendar id="pendDay" value="#{appraisalsBean.appraisals.planningEndDate}" required="true" requiredMessage="not null value"></p:calendar>
+						<h:message for="pendDay" styleClass="error-validation" />
+					</div>
+				</div>
+			</blockquote>
+
+			<blockquote style="margin-top: 40px;">
+				<h4>Evaluation semestrielle</h4>
+
+
+				<div class="control-group">
+					<h:outputLabel value="Date début" styleClass="control-label" />
+					<div class="controls">
+						<p:calendar id="mstartDay" value="#{appraisalsBean.appraisals.midYearReviewStartDate}" required="true" requiredMessage="not null value"></p:calendar>
+						<h:message for="mstartDay" styleClass="error-validation" />
+					</div>
+				</div>
+				<div class="control-group">
+					<h:outputLabel value="Date fin" styleClass="control-label" />
+					<div class="controls">
+						<p:calendar id="mendDay" value="#{appraisalsBean.appraisals.midYearReviewEndDate}" required="true" requiredMessage="not null value"></p:calendar>
+						<h:message for="mendDay" styleClass="error-validation" />
+					</div>
+				</div>
+			</blockquote>
+
+			<blockquote style="margin-top: 40px;">
+				<h4>Evaluation finale</h4>
+
+
+				<div class="control-group">
+					<h:outputLabel value="Date début" styleClass="control-label" />
+					<div class="controls">
+						<p:calendar id="yearstartDay" value="#{appraisalsBean.appraisals.endYearSummaryStartDate}" required="true" requiredMessage="not null value"></p:calendar>
+						<h:message for="yearstartDay" styleClass="error-validation" />
+					</div>
+				</div>
+				<div class="control-group">
+					<h:outputLabel value="Date fin" styleClass="control-label" />
+					<div class="controls">
+						<p:calendar id="yearendDay" value="#{appraisalsBean.appraisals.endYearSummaryEndDate}" required="true" requiredMessage="not null value"></p:calendar>
+						<h:message for="yearendDay" styleClass="error-validation" />
+					</div>
+				</div>
+			</blockquote>
+
+			<div class="form-actions">
+				<h:commandLink action="#{appraisalsBean.SaveAppraisalss}"
+					styleClass="btn btn-primary">
+                            Save Session
+                        </h:commandLink>
+
+				<a href="session.xhtml" class="btn">Back</a>
+			</div>
+		</h:form>
+
+
+	</ui:define>
+	<ui:define name="footer">
+		<ui:include src="/templates/footers/footer.xhtml" />
+	</ui:define>
+</ui:composition>
